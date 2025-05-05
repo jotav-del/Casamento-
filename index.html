@@ -355,7 +355,7 @@ h1 {
   <button onclick="fecharRSVP()">Fechar</button>
     <section id="rsvp" class="rsvp-section">
       <h2 class="section-title">Confirme Sua Presença</h2>
-      <form id="rsvpForm">
+      <form id="rsvpForm" onsubmit="enviarParaWhatsApp(event)">
         <input type="text" id="nome" placeholder="Seu nome" required>
         <input type="text" id="quantidade" placeholder="Número de acompanhantes" required>
         <textarea id="mensagem" placeholder="Deixe um recado opcional..."></textarea>
@@ -522,29 +522,28 @@ h1 {
     recadoForm.reset();
   });
 </script>
-
-
+  
  <footer>
     <p>Com carinho, Jonny & Mary</p>
     <div class="social-icons">
   <!-- Instagram João -->
   <a href="https://www.instagram.com/jotaav3?igsh=MWNkajU0aTlrNjN2dw%3D%3D&utm_source=qr" target="_blank" title="Instagram João">
-    <img src="Links/instagram-icon-jonny.png" alt="Instagram João">
+    <img src="instagram-icon-jonny.png" alt="Instagram João">
   </a>
 
   <!-- Instagram Maria -->
   <a href="https://www.instagram.com/blantex_m?igsh=MWdma2k0bW0wYm1kcg%3D%3D&utm_source=qr" target="_blank" title="Instagram Maria">
-    <img src="Links/instagram-icon-mary.png" alt="Instagram Maria">
+    <img src="instagram-icon-mary.png" alt="Instagram Maria">
   </a>
 
   <!-- WhatsApp João -->
   <a href="https://wa.me/5569992826734" target="_blank" title="Falar com João">
-    <img src="Links/whatsapp-icon-jonny.png" alt="WhatsApp João">
+    <img src="whatsapp-icon-jonny.png" alt="WhatsApp João">
   </a>
 
   <!-- WhatsApp Maria -->
   <a href="https://wa.me/5569992157680" target="_blank" title="Falar com Maria">
-    <img src="Links/whatsapp-icon-mary.png" alt="WhatsApp Maria">
+    <img src="whatsapp-icon-mary.png" alt="WhatsApp Maria">
   </a>
 </div>
 
@@ -636,5 +635,21 @@ setInterval(function() {
   });
 </script>
 
+<script>
+function enviarParaWhatsApp(event) {
+  event.preventDefault();
+
+  const nome = document.getElementById('nome').value;
+  const quantidade = document.getElementById('quantidade').value;
+  const mensagem = document.getElementById('mensagem').value;
+
+  const numero = '5569992826734';
+  const texto = `Olá gostaria de confimar presença no casamento:\n\nNome: ${nome}\nQuantidade de pessoas: ${quantidade}\nMensagem: ${mensagem}`;
+
+  const url = 'https://wa.me/${numero}?text=${encodeURIComponent(texto)}';
+  window.open(url, '_blank');
+}  
+ </script>  
+  
 </body>
 </html>
