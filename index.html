@@ -48,14 +48,10 @@
         <p class="lead text-muted">João e Maria — 30.08.2025</p>
       </div>
       <div class="col-lg-6 d-flex justify-content-center">
-        <div class="reels-wrapper">
-          <div class="col-lg-6 d-flex justify-content-center">
-  <div class="reels-wrapper w-100" style="max-width: 350px;">
-    <video id="videoHero" class="w-100 rounded-4 shadow" playsinline webkit-playsinline poster="capa-video.jpg">
-  <source src="video-hero.mp4" type="video/mp4">
-</video>
-  </div>
-</div>
+        <div class="reels-wrapper w-100" style="max-width: 350px;">
+          <video id="videoHero" class="w-100 rounded-4 shadow" playsinline webkit-playsinline poster="capa-video.jpg">
+            <source src="video-hero.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -243,9 +239,6 @@ h1 {
 </section>
     
 
-    </div>
-  </section>
-
   <section id="historia">
     <h2 class="section-title">Informações</h2>
     <p style="max-width:700px;margin:auto;text-align:center;">
@@ -279,20 +272,18 @@ h1 {
     <h2 class="section-title">Detalhes do Casamento</h2>
     <p style="text-align:center;">Data: 30 de agosto de 2025<br>Local: Rancho Ministério Cristão Resgate</p>
     <div class="traje-box">
-      <p>Traje <strong>social</strong> para todos os convidados.<br>
-       <strong>Padrinhos e madrinhas:</strong>.</p>
-   <div class="imagens-traje" style="display: flex; justify-content: center; gap: 20px;">
+     <p>Traje <strong>social</strong> para todos os convidados.<br>
+      <strong>Padrinhos e madrinhas:</strong></p>
+      <div class="imagens-traje" style="display: flex; justify-content: center; gap: 20px;">
         <div class="imagem-traje">
           <img src="imagem1.jpg" alt="Traje Padrinho" style="width: 300px; height: auto;">
           <p style="text-align: center;">Traje para Padrinho</p>
+        </div>
         <div class="imagem-traje">
           <img src="imagem2.jpg" alt="Traje Madrinha" style="width: 300px; height: auto;">
           <p style="text-align: center;">Traje para Madrinha</p>
-
         </div>
       </div>
-    </div>
-    </div>
   </section>
 
 <section id="mapa" style="background-color: #f9f9f9; padding: 40px 20px;">
@@ -371,21 +362,6 @@ h1 {
   </div>
 </div>
 
-
-  <script>
-    form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const nome = document.getElementById('nome').value;
-  const quant = document.getElementById('quantidade').value;
-  const msg = document.getElementById('mensagem').value;
-  const item = document.createElement('li');
-  item.textContent = `${nome} – ${quant} acompanhante(s)${msg ? ' | Recado: ' + msg : ''}`;
-  lista.appendChild(item);
-  form.reset();
-});
-
-
-  </script>
 
 <div style="text-align:center; margin: 4rem 0;">
   <button onclick="toggleRSVP()" style="
@@ -577,22 +553,34 @@ h1 {
     document.body.classList.remove('rsvp-ativo');
   }
 
-  // Adicionando confirmação no RSVP
+  // Adicionando confirmação no RSVP e enviando para o WhatsApp
   const form = document.getElementById('rsvpForm');
   const lista = document.getElementById('lista');
 
   form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nome = document.getElementById('nome').value;
-    const quant = document.getElementById('quantidade').value;
-    const msg = document.getElementById('mensagem').value;
-    const item = document.createElement('li');
-    item.textContent = `${nome} – ${quant} acompanhante(s)${msg ? ' | Recado: ' + msg : ''}`;
-    lista.appendChild(item);
-    form.reset();
-  });
+    e.preventDefault(); // Impede o envio padrão do formulário
 
+    // Pegando os valores do formulário
+    const nome = document.getElementById('nome').value;
+    const quantidade = document.getElementById('quantidade').value;
+    const mensagem = document.getElementById('mensagem').value;
+
+    // Adicionando à lista de confirmados
+    const item = document.createElement('li');
+    item.textContent = `${nome} – ${quantidade} acompanhante(s)${mensagem ? ' | Recado: ' + mensagem : ''}`;
+    lista.appendChild(item);
+
+    // Enviar para o WhatsApp
+    const numero = '5569992826734'; // Substitua pelo seu número
+    const texto = `Olá, gostaria de confirmar presença no casamento:\n\nNome: ${nome}\nQuantidade de pessoas: ${quantidade}\nMensagem: ${mensagem}`;
+
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+
+    form.reset(); // Resetando o formulário após o envio
+  });
 </script>
+
 
 <script>
 
@@ -635,21 +623,7 @@ setInterval(function() {
   });
 </script>
 
-<script>
-function enviarParaWhatsApp(event) {
-  event.preventDefault();
-
-  const nome = document.getElementById('nome').value;
-  const quantidade = document.getElementById('quantidade').value;
-  const mensagem = document.getElementById('mensagem').value;
-
-  const numero = '5569992826734';
-  const texto = `Olá gostaria de confimar presença no casamento:\n\nNome: ${nome}\nQuantidade de pessoas: ${quantidade}\nMensagem: ${mensagem}`;
-
-  const url = 'https://wa.me/${numero}?text=${encodeURIComponent(texto)}';
-  window.open(url, '_blank');
-}  
- </script>  
+  
   
 </body>
 </html>
